@@ -51,7 +51,7 @@ while running:
 
     if player_rect.colliderect(enemy_rect):
         game_mode = 2
-        running = False
+        #running = False
 
     #draw
     screen.fill((0,0,0))
@@ -60,14 +60,14 @@ while running:
     pygame.draw.rect(screen, (0,0,255),  enemy_rect)
     pygame.display.flip()
 
-if game_mode == 2:
-    txt.message = "Game Over"
-    txt.text_source = txt.font.render(txt.message, True, txt.WHITE)
-    txt.text_rect = txt.text_source.get_rect()
-    # txt.update()
-    txt.text_rect.center = (WIDTH // 2, HEIGHT // 2)
-    screen.blit(txt.text_source, txt.text_rect)
-    Enemy.speed = 0
-    Player.speed = 0
-    pygame.display.flip()
+    if game_mode == 2:
+        txt.message = "Game Over"
+        txt.text_source = txt.font.render(txt.message, True, txt.WHITE)
+        txt.text_rect = txt.text_source.get_rect()
+        # txt.update()
+        txt.text_rect.center = (WIDTH // 2, HEIGHT // 2)
+        screen.blit(txt.text_source, txt.text_rect)
+        Enemy.speed = 0
+        Player.speed = 0
+        pygame.display.flip()
 #pygame.quit()

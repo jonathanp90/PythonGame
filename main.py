@@ -2,14 +2,15 @@ import pygame
 import Player
 import Enemy
 import Text
+import Screen
 
 pygame.init()
 
+player = Player
+enemy = Enemy
 txt = Text
 #Window
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("2D game")
+scene = Screen
 
 clock = pygame.time.Clock()
 
@@ -33,31 +34,33 @@ while running:
 
 
     # Update
-    Enemy.X += Enemy.speed
-    if Enemy.X < 0 or Enemy.X > WIDTH - 50:
-        Enemy.speed *= -1
+    enemy.X += enemy.speed
+    if enemy.X < 0 or enemy.X > scene.WIDTH - 50:
+        enemy.speed *= -1
 
     if keys[pygame.K_LEFT]:
-        Player.posx -= Player.speed
+        player.posx -= player.speed
     if keys[pygame.K_RIGHT]:
-        Player.posx += Player.speed
+        player.posx += player.speed
     if keys[pygame.K_UP]:
-        Player.posy -= Player.speed
+        player.posy -= player.speed
     if keys[pygame.K_DOWN]:
-        Player.posy += Player.speed
+        player.posy += player.speed
 
-    player_rect = pygame.Rect(Player.posx, Player.posy,  Player.width, Player.height)
-    enemy_rect = pygame.Rect(Enemy.X, Enemy.Y, 50, 50)
+    player.Update()
+    enemy.Update()
 
-    if player_rect.colliderect(enemy_rect):
+
+
+    if player.player_rect.colliderect(enemy.enemy_rect):
         game_mode = 2
         #running = False
 
     #draw
-    screen.fill((0,0,0))
+    scene.screen.fill((0,0,0))
 
-    pygame.draw.rect(screen,(250,0,0),player_rect)
-    pygame.draw.rect(screen, (0,0,255),  enemy_rect)
+    pygame.draw.rect(scene.screen,(250,0,0),player.player_rect)
+    pygame.draw.rect(scene.screen, (0,0,255),  enemy.enemy_rect)
     pygame.display.flip()
 
     if game_mode == 2:
@@ -65,9 +68,9 @@ while running:
         txt.text_source = txt.font.render(txt.message, True, txt.WHITE)
         txt.text_rect = txt.text_source.get_rect()
         # txt.update()
-        txt.text_rect.center = (WIDTH // 2, HEIGHT // 2)
-        screen.blit(txt.text_source, txt.text_rect)
-        Enemy.speed = 0
-        Player.speed = 0
+        txt.text_rect.center = (scene.WIDTH // 2, scene.HEIGHT // 2)
+        scene.screen.blit(txt.text_source, txt.text_rect)
+        enemy.speed = 0
+        player.speed = 0
         pygame.display.flip()
 #pygame.quit()

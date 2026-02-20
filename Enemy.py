@@ -8,4 +8,8 @@ speed = 5
 
 
 
-rect = pygame.Rect(X, Y , 50 , 50)
+enemy_rect = pygame.Rect(X, Y , 50 , 50)
+
+def Update():
+    enemy_rect.x = X
+    enemy_rect.y = Y

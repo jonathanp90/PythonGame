@@ -1,13 +1,14 @@
 import pygame
-import Player
-import Enemy
-import Text
-import Screen
+from src.entities import Player
+from src.entities.Enemy import Enemy
+from src.entities.Player import Player
+from src.ui import Text
+from src.core import Screen
 
 pygame.init()
 
-player = Player
-enemy = Enemy
+player = Player(300,200, 50,50,5)
+enemy = Enemy(100, 100, 50, 50, 5)
 txt = Text
 #Window
 scene = Screen
@@ -34,33 +35,26 @@ while running:
 
 
     # Update
-    enemy.X += enemy.speed
-    if enemy.X < 0 or enemy.X > scene.WIDTH - 50:
-        enemy.speed *= -1
 
-    if keys[pygame.K_LEFT]:
-        player.posx -= player.speed
-    if keys[pygame.K_RIGHT]:
-        player.posx += player.speed
-    if keys[pygame.K_UP]:
-        player.posy -= player.speed
-    if keys[pygame.K_DOWN]:
-        player.posy += player.speed
 
-    player.Update()
-    enemy.Update()
+    player.handle_input()
 
 
 
-    if player.player_rect.colliderect(enemy.enemy_rect):
+    player.update()
+    enemy.update(scene.screen)
+
+
+
+    if player.rect.colliderect(enemy.rect):
         game_mode = 2
         #running = False
 
     #draw
     scene.screen.fill((0,0,0))
 
-    pygame.draw.rect(scene.screen,(250,0,0),player.player_rect)
-    pygame.draw.rect(scene.screen, (0,0,255),  enemy.enemy_rect)
+    player.draw(scene.screen)
+    enemy.draw(scene.screen)
     pygame.display.flip()
 
     if game_mode == 2:

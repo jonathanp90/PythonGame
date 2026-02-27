@@ -1,3 +1,6 @@
+[![Python application](https://github.com/jonathanp90/PythonGame/actions/workflows/python-app.yml/badge.svg)](https://github.com/jonathanp90/PythonGame/actions/workflows/python-app.yml)
+[![codecov](https://codecov.io/github/jonathanp90/PythonGame/graph/badge.svg?token=XA3X9CFIYZ)](https://codecov.io/github/jonathanp90/PythonGame)
+
 Author: Jonathan Perez
 Email: jmpg10904@gmail.com
 GitHub: jonathanp90

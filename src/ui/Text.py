@@ -2,18 +2,30 @@ from tokenize import String
 
 import pygame
 
-pygame.font.init()
+class Text:
 
-WHITE = (255,255,255)
+    def __init__(self, message: str):
+        pygame.font.init()
 
-message = String
-font = pygame.font.SysFont("Aerial", 30)
-text_source = font.render(message, True, WHITE)
-text_rect = text_source.get_rect()
+        self.Color = (255,255,255)
 
-def set_message(mess):
-    message = mess
+        self.Message = message
+        self.Font = pygame.font.SysFont("Aerial", 30)
+        self.Source = self.Font.render(self.Message, True, self.Color)
+        self.Position = self.Source.get_rect()
 
-def update():
-    text_source = font.render(message, True, WHITE)
-    text_rect = text_source.get_rect()
+    def set_message(self, mess):
+        self.Message = mess
+        self.update()
+    
+    def set_position(self, x:int, y: int):
+        self.Position.x = x
+        self.Position.y = y
+        self.update()
+
+    def update(self):
+        self.Source = self.Font.render(self.Message, True, self.Color)
+        self.Position = self.Source.get_rect()
+
+    def draw(self, scene:pygame.surface):
+        scene.blit(self.Source, self.Position)

@@ -2,16 +2,16 @@ import pygame
 from src.entities import Player
 from src.entities.Enemy import Enemy
 from src.entities.Player import Player
-from src.ui import Text
-from src.core import Screen
+from src.ui.Text import Text
+from src.core.Screen import Screen
 
 pygame.init()
 
 player = Player(300,200, 50,50,5)
 enemy = Enemy(100, 100, 50, 50, 5)
-txt = Text
+txt = Text("Game Over")
 #Window
-scene = Screen
+window = Screen(600,800)
 
 clock = pygame.time.Clock()
 
@@ -42,7 +42,7 @@ while running:
 
 
     player.update()
-    enemy.update(scene.screen)
+    enemy.update(window.Scene)
 
 
 
@@ -51,20 +51,21 @@ while running:
         #running = False
 
     #draw
-    scene.screen.fill((0,0,0))
+    window.Scene.fill((0,0,0))
 
-    player.draw(scene.screen)
-    enemy.draw(scene.screen)
-    pygame.display.flip()
+
+    player.draw(window.Scene)
+    enemy.draw(window.Scene)
+    window.draw()
 
     if game_mode == 2:
-        txt.message = "Game Over"
-        txt.text_source = txt.font.render(txt.message, True, txt.WHITE)
-        txt.text_rect = txt.text_source.get_rect()
+        txt.set_message( "Game Over")
+        
         # txt.update()
-        txt.text_rect.center = (scene.WIDTH // 2, scene.HEIGHT // 2)
-        scene.screen.blit(txt.text_source, txt.text_rect)
+        txt.set_position(window.Width // 2, window.Height // 2)
+        txt.draw(window.Scene)
         enemy.speed = 0
         player.speed = 0
-        pygame.display.flip()
+        window.draw()
+        
 #pygame.quit()

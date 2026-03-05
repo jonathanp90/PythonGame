@@ -12,7 +12,9 @@ class Enemy:
         self.velocity_x += self.speed
 
         if self.rect.x < 0 or self.rect.x > scene.get_width() -50:
-            self.speed = -1
+            self.speed = - 5
+        elif self.rect.x < 0:
+            self.speed = 5
 
         self.rect.x = self.velocity_x
 
